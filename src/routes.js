@@ -18,7 +18,7 @@ const projects = [
 routes.post('/projects', (req, res) => {
   const { id, title } = req.body;
 
-  projects.push({ id, title, talks: []});
+  projects.push({ id, title, tasks: []});
 
   return res.send();
 });
@@ -44,11 +44,23 @@ routes.put('/projects/:id', (req, res) => {
 routes.delete('/projects/:id', (req, res) => {
   const { id } = req.params;
 
-  const index = projects.findIndex((element) => element.id === id);
+  const index = projects.findIndex((project) => project.id === id);
 
   projects.splice(index, 1);
 
   return res.json(projects);
+});
+
+routes.post('/projects/:id/talks', (req, res) => {
+  const { id } = req.params;
+  const { title } = req.body;
+
+  // projects.talks.push
+  const index = projects.findIndex((project) => project.id == id);
+  projects[index].tasks.push(title);
+
+  return res.send();
+
 });
 
 

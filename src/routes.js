@@ -23,4 +23,9 @@ routes.post('/projects', (req, res) => {
   return res.send();
 });
 
+routes.get('/projects', (req, res) => {
+  return res.json(projects);
+})
+
+
 module.exports = routes;

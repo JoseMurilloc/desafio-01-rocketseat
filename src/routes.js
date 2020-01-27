@@ -38,7 +38,18 @@ routes.put('/projects/:id', (req, res) => {
   });
 
   return res.send(projects);
-})
+});
+
+
+routes.delete('/projects/:id', (req, res) => {
+  const { id } = req.params;
+
+  const index = projects.findIndex((element) => element.id === id);
+
+  projects.splice(index, 1);
+
+  return res.json(projects);
+});
 
 
 module.exports = routes;

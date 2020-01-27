@@ -37,7 +37,7 @@ routes.put('/projects/:id', (req, res) => {
     }
   });
 
-  return res.send(projects);
+  return res.send();
 });
 
 
@@ -48,7 +48,7 @@ routes.delete('/projects/:id', (req, res) => {
 
   projects.splice(index, 1);
 
-  return res.json(projects);
+  return res.send();
 });
 
 routes.post('/projects/:id/talks', (req, res) => {

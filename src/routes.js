@@ -2,21 +2,25 @@ const { Router } = require('express');
 
 const routes = Router();
 
-const users = [
+const projects = [
   {
-    id: 1,
+    id: "1",
     title: 'Aprender Node.js',
     tasks: ['Irei estadar somente a noite', 'Hoje irei estudar os Middlewares']
   },
   {
-    id: 2,
+    id: "2",
     title: 'Aprender React.js',
     tasks: []
   }
 ];
 
-routes.get('/', (req, res) => {
-  return res.send('Hello');
+routes.post('/projects', (req, res) => {
+  const { id, title } = req.body;
+
+  projects.push({ id, title, talks: []});
+
+  return res.send();
 });
 
 module.exports = routes;

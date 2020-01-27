@@ -25,6 +25,19 @@ routes.post('/projects', (req, res) => {
 
 routes.get('/projects', (req, res) => {
   return res.json(projects);
+});
+
+routes.put('/projects/:id', (req, res) => {
+  const { id } = req.params;
+  const { title } = req.body;
+  
+  projects.map(project => {
+    if(project.id === id) {
+      project.title = title;
+    }
+  });
+
+  return res.send(projects);
 })
 
 

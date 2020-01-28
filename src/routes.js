@@ -1,18 +1,10 @@
 import { Router } from'express';
-const routes = new Router();
 
-const projects = [
-  {
-    id: "1",
-    title: 'Aprender Node.js',
-    tasks: ['Irei estadar somente a noite', 'Hoje irei estudar os Middlewares']
-  },
-  {
-    id: "2",
-    title: 'Aprender React.js',
-    tasks: []
-  }
-];
+import ProjectController from './controllers/ProjectController';
+import TasksController from './controllers/TasksController';
+
+const routes = new Router();
+import projects from './utils/Projects';
 
 function checkProjectsId(req, res, next) {
   const { id } = req.params;
@@ -26,53 +18,15 @@ function checkProjectsId(req, res, next) {
 }
 
 
-routes.post('/projects', (req, res) => {
-  const { id, title } = req.body;
+routes.post('/projects', ProjectController.store);
 
-  projects.push({ id, title, tasks: []});
+routes.get('/projects', ProjectController.index);
 
-  return res.send();
-});
+routes.put('/projects/:id', checkProjectsId, ProjectController.update);
 
-routes.get('/projects', (req, res) => {
-  return res.json(projects);
-});
+routes.delete('/projects/:id', checkProjectsId, ProjectController.destroy);
 
-routes.put('/projects/:id', checkProjectsId, (req, res) => {
-  const { id } = req.params;
-  const { title } = req.body;
-  
-  projects.map(project => {
-    if(project.id === id) {
-      project.title = title;
-    }
-  });
-
-  return res.send();
-});
-
-
-routes.delete('/projects/:id', checkProjectsId, (req, res) => {
-  const { id } = req.params;
-
-  const index = projects.findIndex((project) => project.id === id);
-
-  projects.splice(index, 1);
-
-  return res.send();
-});
-
-routes.post('/projects/:id/talks', checkProjectsId, (req, res) => {
-  const { id } = req.params;
-  const { title } = req.body;
-
-  // projects.talks.push
-  const index = projects.findIndex((project) => project.id == id);
-  projects[index].tasks.push(title);
-
-  return res.send();
-
-});
+routes.post('/projects/:id/talks', checkProjectsId, TasksController.store);
 
 
 export default routes;

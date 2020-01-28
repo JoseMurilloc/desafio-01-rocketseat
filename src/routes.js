@@ -4,18 +4,18 @@ import ProjectController from './controllers/ProjectController';
 import TasksController from './controllers/TasksController';
 
 const routes = new Router();
-import projects from './utils/Projects';
+import checkProjectsId from './middleware';
 
-function checkProjectsId(req, res, next) {
-  const { id } = req.params;
+// function checkProjectsId(req, res, next) {
+//   const { id } = req.params;
 
-  const index = projects.findIndex((project) => project.id == id);
+//   const index = projects.findIndex((project) => project.id == id);
 
-  if(index === -1)
-    return res.status(400).send('Project is not exists');
+//   if(index === -1)
+//     return res.status(400).send('Project is not exists');
   
-  return next();
-}
+//   return next();
+// }
 
 
 routes.post('/projects', ProjectController.store);

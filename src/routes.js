@@ -39,7 +39,7 @@ routes.get('/projects', (req, res) => {
   return res.json(projects);
 });
 
-routes.put('/projects/:id', (req, res) => {
+routes.put('/projects/:id', checkProjectsId, (req, res) => {
   const { id } = req.params;
   const { title } = req.body;
   

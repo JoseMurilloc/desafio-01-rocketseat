@@ -12,7 +12,7 @@
     Tecnologias usadas
   </h2>
   :heavy_plus_sign: Node.js <br>
-  :heavy_plus_sign: Express.js <nr>
+  :heavy_plus_sign: Express.js <br>
   :art: sucrase <br>
   :dizzy: Nodemon
 </div>

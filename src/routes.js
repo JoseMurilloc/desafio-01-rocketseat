@@ -1,4 +1,4 @@
-const { Router } = require('express');
+import { Router } from'express';
 const routes = new Router();
 
 const projects = [
@@ -75,4 +75,4 @@ routes.post('/projects/:id/talks', checkProjectsId, (req, res) => {
 });
 
 
-module.exports = routes;
+export default routes;

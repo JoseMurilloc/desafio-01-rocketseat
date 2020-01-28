@@ -1,6 +1,6 @@
 const { Router } = require('express');
 
-const routes = Router();
+const routes = new Router();
 
 const projects = [
   {
@@ -14,6 +14,18 @@ const projects = [
     tasks: []
   }
 ];
+
+function checkProjectsId(req, res, next) {
+  const { id } = req.params;
+
+  const index = projects.findIndex((project) => project.id == id);
+
+  if(index === -1)
+    return res.status(400).send('Project is not exists');
+  
+  return next();
+}
+
 
 routes.post('/projects', (req, res) => {
   const { id, title } = req.body;
@@ -41,7 +53,7 @@ routes.put('/projects/:id', (req, res) => {
 });
 
 
-routes.delete('/projects/:id', (req, res) => {
+routes.delete('/projects/:id', checkProjectsId, (req, res) => {
   const { id } = req.params;
 
   const index = projects.findIndex((project) => project.id === id);
@@ -51,7 +63,7 @@ routes.delete('/projects/:id', (req, res) => {
   return res.send();
 });
 
-routes.post('/projects/:id/talks', (req, res) => {
+routes.post('/projects/:id/talks', checkProjectsId, (req, res) => {
   const { id } = req.params;
   const { title } = req.body;
 
